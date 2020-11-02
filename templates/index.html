@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Loan Prediction System</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			background-color: #778899;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 100vh;
+			margin: 0;
+		}
+
+		#container {
+			background-color: #B0C4DE;
+			border-radius: 5px;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+			overflow: hidden;
+			width: 800px;
+			max-width: 800px;
+			height: 520px;
+		}
+
+		.heading {
+			border-bottom: 2px solid #f0f0f0;
+			background-color: black;
+			padding: 20px 40px;
+			color: white;
+			border-radius: 2px;
+			text-align: center;
+		}
+
+		.heading h1 {
+			margin: 0;
+		}
+
+		#form {
+			padding: 30px 40px;
+		}
+
+		.form-control {
+			margin-bottom: 10px;
+			padding-bottom: 20px;
+			position: relative;
+
+		}
+
+
+		input {
+
+			border-radius: 4px;
+			padding: 10px;
+			text-align: center;
+			border-radius: 4px;
+			height: 40px;
+			line-height: 40px;
+			width: 300px;
+			background-color: #FFF5EE;
+			margin-left: 220px;
+		}
+
+		button {
+			margin-left: 215px;
+			height: 50px;
+			line-height: 50px;
+			width: 310px;
+			color: white;
+			background-color: black;
+			border-radius: 4px;
+		}
+	</style>
+</head>
+
+<body>
+
+
+
+	<div id="container">
+		<div class="heading">
+			<h1>Loan Prediction</h1>
+		</div>
+
+		<form id="form" , action="{{ url_for('predict')}}" , method="POST" name="loanForm" onsubmit="return validateForm();">
+
+
+			<div name="form-control">
+				<input type="number" name="Credit_Score" placeholder="Credit_Score" required="required" />
+				<div class="status" id="credit_error" style='color:red; text-align: center;'></div>
+			</div>
+
+
+			<div name="form-control">
+
+				</b><br><input type="number" name="Loan_Amount" placeholder="Loan_Amount" required="required" /><br>
+				<div class="status" id="loan_error" style='color:red; text-align: center;'></div>
+			</div>
+
+			<div name="form-control">
+
+				</b><br><input type="number" name="Monthly_Debt" placeholder="Monthly_Debt" required="required" /><br>
+				<div class="status" id="monthly_error" style='color:red; text-align: center;'></div>
+			</div>
+
+			<div name="form-control">
+
+				</b><br><input type="number" name="Open_Credit" placeholder="Open_Credit" required="required" /><br>
+				<div class="status" id="open_error" style='color:red; text-align: center;'></div>
+			</div>
+
+			<div name="form-control">
+
+				</b><br><input type="number" name="Credit_Balance" placeholder="Credit_Balance"
+					required="required" /><br><br>
+				<div class="status" id="balance_error" style='color:red; text-align: center;'></div>
+			</div>
+
+			<button type="submit" , value='predict'><b>Predict</b></button>
+			<center>
+				<h2> Loan Prediction: {{ prediction_text }}</h2>
+			</center>
+
+
+		</form>
+
+
+
+		<br>
+
+
+
+
+
+</body>
+<script type="text/javascript">
+	
+	   function validateForm(){
+			var result = true;
+			$("#credit_error").html('');
+			$("#loan_error").html('');
+			$("#monthly_error").html('');
+			$("#open_error").html('');
+			$("#balance_error").html('');
+			var Credit_Score = document.forms["loanForm"]["Credit_Score"].value;
+			var Loan_Amount = document.forms["loanForm"]["Loan_Amount"].value;
+			var Monthly_Debt = document.forms["loanForm"]["Monthly_Debt"].value;
+			var Open_Credit = document.forms["loanForm"]["Open_Credit"].value;
+			var Credit_Balance = document.forms["loanForm"]["Credit_Balance"].value;
+			// var alreadyusername = document.forms["clientForm"]["alreadyusername"].value.trim();
+			if(Credit_Score < 100 || Credit_Score > 500000){
+				console.log('Errorrr')
+				$("#credit_error").html('Please enter value in the range of 100-500000');
+				
+				result = false;
+			}
+			if(Loan_Amount < 100 || Loan_Amount > 500000){
+				console.log('Errorrr')
+				$("#loan_error").html('Please enter value in the range of 100-500000');
+				result = false;
+			}
+			if(Monthly_Debt < 100 || Monthly_Debt > 500000){
+				console.log('Errorrr')
+				$("#monthly_error").html('Please enter value in the range of 100-500000');
+				result = false;
+			}
+			if(Open_Credit < 100 || Open_Credit > 500000){
+				console.log('Errorrr')
+				$("#open_error").html('Please enter value in the range of 100-500000');
+				result = false;
+			}
+			if(Credit_Balance < 100 || Credit_Balance > 500000){
+				console.log('Errorrr')
+				$("#balance_error").html('Please enter value in the range of 100-500000');
+				result = false;
+			}
+			return result;
+		}
+   </script>
+
+</html>
